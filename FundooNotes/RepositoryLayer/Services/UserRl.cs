@@ -4,13 +4,19 @@ using RepositoryLayer.Entity;
 using RepositoryLayer.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RepositoryLayer.Services
 {
     public class UserRl : IUserRL
     {
-     public readonly Context context;
+     public readonly UserContext ucontext;
+        public UserRl(UserContext ucontext)
+        {
+            this.ucontext = ucontext;
+        }
+
         public UserEntity Registration(UserRegistration user)
         {
             try
@@ -20,8 +26,8 @@ namespace RepositoryLayer.Services
                 entity.LastName = user.LastName;
                 entity.Email = user.Email;
                 entity.Password = user.Password;
-                context.Add(entity);
-                int result = this.context.SaveChanges();
+                ucontext.Users.Add(entity);
+                int result = this.ucontext.SaveChanges();
                 if(result > 0)
                 {
                     return entity;
@@ -33,6 +39,22 @@ namespace RepositoryLayer.Services
                 throw;
             }
            
+        }
+        public string LoginUser(LoginUser loginUser)
+        {
+            try
+            {
+                var user = UserContext.users.Where(x => x.Email == loginUser.Email && x.Password == loginUser.Password).FirstOrDefault();
+                if (user == null)
+                {
+                    return null;
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

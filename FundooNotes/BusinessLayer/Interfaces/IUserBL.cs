@@ -1,15 +1,18 @@
 ﻿using CommonLayer.Models;
+using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace BusinessLayer.Interfaces
 {
-    public class IUserBL
+    public interface IUserBL
     {
-        public object Registration(UserRegistration userRegistration)
-        {
-            throw new NotImplementedException();
-        }
+        public UserEntity Registration(UserRegistration userRegistration);
+
+        public string LoginUser(LoginModel loginModel);
+
+
     }
+
 }

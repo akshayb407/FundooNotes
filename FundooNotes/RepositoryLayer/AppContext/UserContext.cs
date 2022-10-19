@@ -6,9 +6,9 @@ using System.Text;
 
 namespace RepositoryLayer.AppContext
 {
-    public class Context : DbContext
+    public class UserContext : DbContext
     {
-        public Context(DbContextOptions options)
+        public UserContext(DbContextOptions options)
             : base(options)
         {
         }

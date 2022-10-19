@@ -16,16 +16,30 @@ namespace BusinessLayer.Services
         {
             this.iuserrl = userrl;
         }
-        public UserEntity UserRegistration(UserRegistration user)
+
+        public UserEntity Registration(UserRegistration userRegistration)
         {
             try
             {
-                return this.iuserrl.Registration(user);
+                return this.iuserrl.Registration(userRegistration);
             }
             catch (Exception)
             {
                 throw;
             }
+
         }
+        public string UserLogin(LoginModel loginModel)
+        {
+            try
+            {
+                return this.userrl.LoginUser(loginModel);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
     }
 }
