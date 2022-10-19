@@ -10,7 +10,7 @@ namespace BusinessLayer.Interfaces
     {
         public UserEntity Registration(UserRegistration userRegistration);
 
-        public string LoginUser(LoginModel loginModel);
+        public UserEntity LoginUser(LoginUser loginUser);
 
 
     }

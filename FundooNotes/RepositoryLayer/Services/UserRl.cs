@@ -40,15 +40,17 @@ namespace RepositoryLayer.Services
             }
            
         }
-        public string LoginUser(LoginUser loginUser)
+        public UserEntity LoginUser(LoginUser loginUser)
         {
             try
             {
-                var user = UserContext.users.Where(x => x.Email == loginUser.Email && x.Password == loginUser.Password).FirstOrDefault();
-                if (user == null)
+                UserEntity userEntity = new UserEntity();
+                userEntity = this.ucontext.Users.FirstOrDefault(x => x.Email == loginUser.Email && x.Password == loginUser.Password);
+                if (userEntity == null)
                 {
                     return null;
                 }
+                return userEntity;
             }
             catch (Exception)
             {

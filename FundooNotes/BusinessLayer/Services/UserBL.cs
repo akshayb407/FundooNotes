@@ -29,15 +29,15 @@ namespace BusinessLayer.Services
             }
 
         }
-        public string UserLogin(LoginModel loginModel)
+        public UserEntity LoginUser(LoginUser loginUser)
         {
             try
             {
-                return this.userrl.LoginUser(loginModel);
+                return this.iuserrl.LoginUser(loginUser);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
