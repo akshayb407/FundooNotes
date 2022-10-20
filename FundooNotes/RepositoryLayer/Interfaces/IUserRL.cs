@@ -10,7 +10,8 @@ namespace RepositoryLayer.Interfaces
     {
         public UserEntity Registration(UserRegistration user);
 
-        public UserEntity LoginUser(LoginUser loginUser);
+        public string LoginUser(LoginUser loginUser);
 
+        public string GenerateJWTToken(long userid);
     }
 }

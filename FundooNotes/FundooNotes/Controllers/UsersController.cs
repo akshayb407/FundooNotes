@@ -42,10 +42,10 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var Login = this.userBL.LoginUser(loginUser);
+                string Login = this.userBL.LoginUser(loginUser);
                 if (Login != null)
                 {
-                    return this.Ok(new { success = true, message = $"login successful for {loginUser.Email}" });
+                    return this.Ok(new { success = true, message = $"login successful for {loginUser.Email}",data = Login });
                 }
                 else
                 {

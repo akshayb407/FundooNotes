@@ -8,7 +8,7 @@ using System.Text;
 
 namespace BusinessLayer.Services
 {
-    public class UserBL:IUserBL
+    public class UserBL : IUserBL
     {
         IUserRL iuserrl;
 
@@ -29,7 +29,7 @@ namespace BusinessLayer.Services
             }
 
         }
-        public UserEntity LoginUser(LoginUser loginUser)
+        public string LoginUser(LoginUser loginUser)
         {
             try
             {
@@ -40,6 +40,17 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
+        public string GenerateJWTToken(long emailid)
+        {
+            try
+            {
+                return iuserrl.GenerateJWTToken(emailid);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
 
+        }
     }
 }

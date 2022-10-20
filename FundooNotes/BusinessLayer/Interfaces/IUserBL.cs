@@ -10,9 +10,9 @@ namespace BusinessLayer.Interfaces
     {
         public UserEntity Registration(UserRegistration userRegistration);
 
-        public UserEntity LoginUser(LoginUser loginUser);
+        public string LoginUser(LoginUser loginUser);
 
-
+        public string GenerateJWTToken(long emailid);
     }
 
 }
