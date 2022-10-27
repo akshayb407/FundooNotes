@@ -11,7 +11,8 @@ namespace RepositoryLayer.Interfaces
         public UserEntity Registration(UserRegistration user);
 
         public string LoginUser(LoginUser loginUser);
-
-        public string GenerateJWTToken(long userid);
+        public string GenerateJWTToken(long userid,string email);
+        public string ForgetPassword(string email);
+        public bool ResetPassword(string email, string password, string confirmpassword);
     }
 }

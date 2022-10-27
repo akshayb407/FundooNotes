@@ -39,40 +39,50 @@ namespace FundooNotes
             services.AddControllers();
             services.AddTransient<IUserRL, UserRl>();
             services.AddTransient<IUserBL, UserBL>();
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-           .AddJwtBearer(options =>
-           {
-              options.TokenValidationParameters = new TokenValidationParameters
-              {
-                  ValidateIssuer = true,
-                  ValidateAudience = true,
-                  ValidateLifetime = true,
-                  ValidateIssuerSigningKey = true,
-                  ValidIssuer = Configuration["Jwt:Issuer"],
-                  ValidAudience = Configuration["Jwt:Issuer"],
-                   IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
-              };
-           });
 
-            services.AddSwaggerGen(c => {
-                c.SwaggerDoc("v1", new OpenApiInfo
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Welcome to FundooNotes" });
+
+
+                var securitySchema = new OpenApiSecurityScheme
                 {
-                    Version = "v1",
-                    Title = "FundooNotes",
-                    Description = "A simple example for swagger api information",
-                    TermsOfService = new Uri("https://example.com/terms"),
-                    Contact = new OpenApiContact
+                    Description = "Using the Authorization header with the Bearer scheme.",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    Reference = new OpenApiReference
                     {
-                        Name = "Your Name XYZ",
-                        Email = "xyz@gmail.com",
-                        Url = new Uri("https://example.com"),
-                    },
-                    License = new OpenApiLicense
-                    {
-                        Name = "Use under OpenApiLicense",
-                        Url = new Uri("https://example.com/license"),
+                        Type = ReferenceType.SecurityScheme,
+                        Id = "Bearer"
                     }
-                });
+                };
+
+                c.AddSecurityDefinition("Bearer", securitySchema);
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+              { securitySchema, new[] { "Bearer" } }});
+
+            });
+
+            services.AddAuthentication(option =>
+            {
+                option.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                option.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = false,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"])) //Configuration["JwtToken:SecretKey"]
+                };
             });
         }
 

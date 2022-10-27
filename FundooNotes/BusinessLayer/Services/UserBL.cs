@@ -40,17 +40,38 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
-        public string GenerateJWTToken(long emailid)
+        public string GenerateJWTToken(long userid, string email)
         {
             try
             {
-                return iuserrl.GenerateJWTToken(emailid);
+                return iuserrl.GenerateJWTToken(userid, email);
             }
             catch (Exception)
             {
                 throw;
             }
-
+        }
+        public string ForgetPassword(string email)
+        {
+            try
+            {
+                return iuserrl.ForgetPassword(email);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public bool ResetPassword(string email, string password, string confirmpassword)
+        {
+            try
+            {
+                return iuserrl.ResetPassword(email, password, confirmpassword);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

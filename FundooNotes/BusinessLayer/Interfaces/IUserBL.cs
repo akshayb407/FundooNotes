@@ -12,7 +12,11 @@ namespace BusinessLayer.Interfaces
 
         public string LoginUser(LoginUser loginUser);
 
-        public string GenerateJWTToken(long emailid);
+        public string GenerateJWTToken(long emailid,string email);
+
+        public string ForgetPassword(string email);
+
+        public bool ResetPassword(string email, string password, string confirmpassword);
     }
 
 }
