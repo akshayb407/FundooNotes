@@ -30,17 +30,21 @@ namespace RepositoryLayer.Services
             try
             {
                 UserEntity entity = new UserEntity();
-                entity.FirstName = user.FirstName;
-                entity.LastName = user.LastName;
-                entity.Email = user.Email;
-                entity.Password = user.Password;
-                ucontext.Users.Add(entity);
-                int result = this.ucontext.SaveChanges();
-                if(result > 0)
-                {
-                    return entity;
-                }
-                return null;
+               
+                
+                    entity.FirstName = user.FirstName;
+                    entity.LastName = user.LastName;
+                    entity.Email = user.Email;
+                    entity.Password = user.Password;
+                    entity.Password = EncryptPass(user.Password);
+                    ucontext.Users.Add(entity);
+                    int result = this.ucontext.SaveChanges();
+                    if (result > 0)
+                    {
+                        return entity;
+                    }
+                    return null;
+               
             }
             catch (Exception)
             {
@@ -88,10 +92,11 @@ namespace RepositoryLayer.Services
             try
             {
                 UserEntity userEntity = new UserEntity();
-                userEntity = this.ucontext.Users.FirstOrDefault(x => x.Email == loginUser.Email && x.Password == loginUser.Password);
+                userEntity = this.ucontext.Users.FirstOrDefault(x => x.Email == loginUser.Email );
+                string dPass = Decrpt(userEntity.Password);
                 var id = userEntity.UserId;
                 var email = userEntity.Email;
-                if (userEntity != null)
+                if (dPass == loginUser.Password && userEntity != null)
                 {
                     var token = GenerateJWTToken(id,email);
                     return token;

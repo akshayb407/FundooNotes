@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Security.Claims;
 
 namespace FundooNotes.Controllers
 {
@@ -68,7 +69,7 @@ namespace FundooNotes.Controllers
                 string token = userBL.ForgetPassword(email);
                 if (token != null)
                 {
-                    return Ok(new { success = true, Message = "Please check your Email Token sent succesfully." });
+                    return Ok(new { success = true, Message = "Please check your Email Token sent succesfully" });
                 }
                 else
                 {
@@ -86,14 +87,15 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                var email = User.Claims.First(e => e.Type == "Email").Value;
+                var email = User.FindFirst(ClaimTypes.Email).Value.ToString();
+               // var email = User.Claims.First(e => e.Type == "Email").Value;
                 if (userBL.ResetPassword(email, password, confirmPassword))
                 {
                     return this.Ok(new { Success = true, message = "Your password has been changed sucessfully" });
                 }
                 else
                 {
-                    return this.BadRequest(new { Success = false, message = "Unable to reset password.Please try again" });
+                    return this.BadRequest(new { Success = false, message = "Unable to reset the password.Reset unsucessfull.Please try it again" });
                 }
             }
             catch (Exception)
