@@ -10,7 +10,7 @@ using RepositoryLayer.AppContext;
 namespace RepositoryLayer.Migrations
 {
     [DbContext(typeof(UserContext))]
-    [Migration("20221028065651_UserData")]
+    [Migration("20221030165123_UserData")]
     partial class UserData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,48 @@ namespace RepositoryLayer.Migrations
                 .HasAnnotation("ProductVersion", "3.1.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("RepositoryLayer.Entity.CollabEntity", b =>
+                {
+                    b.Property<long>("CollabId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("CollabEmail")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Noteid")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Userid")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("CollabId");
+
+                    b.ToTable("Collaborator");
+                });
+
+            modelBuilder.Entity("RepositoryLayer.Entity.LabelEntity", b =>
+                {
+                    b.Property<long>("LabelId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("LabelName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<long>("Noteid")
+                        .HasColumnType("bigint");
+
+                    b.Property<long>("Userid")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("LabelId");
+
+                    b.ToTable("labels");
+                });
 
             modelBuilder.Entity("RepositoryLayer.Entity.UserEntity", b =>
                 {
@@ -84,18 +126,7 @@ namespace RepositoryLayer.Migrations
 
                     b.HasKey("NoteID");
 
-                    b.HasIndex("userid");
-
                     b.ToTable("Notes");
-                });
-
-            modelBuilder.Entity("RepositoryLayer.Entity.UserNotes", b =>
-                {
-                    b.HasOne("RepositoryLayer.Entity.UserEntity", "user")
-                        .WithMany()
-                        .HasForeignKey("userid")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

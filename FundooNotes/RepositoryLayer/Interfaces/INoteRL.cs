@@ -12,11 +12,11 @@ namespace RepositoryLayer.Interfaces
         public UserNotes DeleteNote(long NoteId);
         public UserNotes UpdateNote(NoteModel noteModel, long NoteId);
         public List<UserNotes> GetNotebyUserId(long userId);
-        public bool Pinned(long NoteID, long userId);
-        public bool Trashed(long NoteID, long userId);
-        public bool Archieved(long NoteID, long userId);
-        public UserNotes ColorNote(long NoteId, string color);
-        bool Trashed(long userId);
-        bool Archieved(long userId);
+        public List<UserNotes> GetNote(long NoteId);
+        public List<UserNotes> GetAllNote();
+        public UserNotes IsPinORNot(long noteid);
+        public UserNotes IstrashORNot(long noteid);
+        public UserNotes IsArchiveORNot(long noteid);
+        public UserNotes Color(long noteid, string color);
     }
 }

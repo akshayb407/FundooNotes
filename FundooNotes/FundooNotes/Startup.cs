@@ -41,6 +41,11 @@ namespace FundooNotes
             services.AddTransient<IUserBL, UserBL>();
             services.AddTransient<INoteBL, NoteBL>();
             services.AddTransient<INoteRL, NoteRl>();
+            services.AddTransient<ICollabBL, CollabBL>();
+            services.AddTransient<ICollabRL, CollabRl>();
+            services.AddTransient<ILabelBL, LabelBL>();
+            services.AddTransient<ILabelRL, LabelRl>();
+
 
 
             services.AddSwaggerGen(c =>

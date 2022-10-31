@@ -100,73 +100,6 @@ namespace RepositoryLayer.Services
                 throw;
             }
         }
-
-        public bool Pinned(long NoteID, long userId)
-        {
-            try
-            {
-                var result = ucontext.Notes.Where(r => r.userid == userId && r.NoteID == NoteID).FirstOrDefault();
-
-                result.IsPin = !result.IsPin;
-                ucontext.SaveChanges();
-                return result.IsPin;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public bool Trashed(long NoteID, long userId)
-        {
-            try
-            {
-                var result = ucontext.Notes.Where(r => r.userid == userId && r.NoteID == NoteID).FirstOrDefault();
-
-                result.IsTrash = !result.IsTrash;
-                ucontext.SaveChanges();
-                return result.IsTrash;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-        public bool Archieved(long NoteID, long userId)
-        {
-            try
-            {
-                var result = ucontext.Notes.Where(r => r.userid == userId && r.NoteID == NoteID).FirstOrDefault();
-                result.IsArchive = !result.IsArchive;
-                ucontext.SaveChanges();
-                return result.IsArchive;
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-        }
-
-        public UserNotes ColorNote(long NoteId, string color)
-        {
-            var result = ucontext.Notes.Where(r => r.NoteID == NoteId).FirstOrDefault();
-            if (result != null)
-            {
-
-                result.Color = color;
-                ucontext.Notes.Update(result);
-                ucontext.SaveChanges();
-                return result;
-
-            }
-            else
-            {
-                return null;
-            }
-        }
-
         public List<UserNotes> GetNotebyUserId(long userId)
         {
             try
@@ -186,14 +119,127 @@ namespace RepositoryLayer.Services
             }
         }
 
-        public bool Trashed(long userId)
+        public List<UserNotes> GetNote(long NoteId)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Note = ucontext.Notes.Where(x => x.NoteID == NoteId).FirstOrDefault();
+
+                if (Note != null)
+                {
+                    return ucontext.Notes.Where(list => list.NoteID == NoteId).ToList();
+                }
+
+                return null;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
-        public bool Archieved(long userId)
+        public List<UserNotes> GetAllNote()
         {
-            throw new NotImplementedException();
+            try
+            {
+                var Note = ucontext.Notes.FirstOrDefault();
+
+                if (Note != null)
+                {
+                    return ucontext.Notes.ToList();
+                }
+
+                return null;
+
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
+        public UserNotes IsPinORNot(long noteid)
+        {
+            try
+            {
+                UserNotes result = this.ucontext.Notes.FirstOrDefault(x => x.NoteID == noteid);
+                if (result.IsPin == true)
+                {
+                    result.IsPin = false;
+                    this.ucontext.SaveChanges();
+                    return result;
+                }
+                result.IsPin = true;
+                this.ucontext.SaveChanges();
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public UserNotes IstrashORNot(long noteid)
+        {
+            try
+            {
+                UserNotes result = this.ucontext.Notes.FirstOrDefault(x => x.NoteID == noteid);
+                if (result.IsTrash == true)
+                {
+                    result.IsTrash = false;
+                    this.ucontext.SaveChanges();
+                    return result;
+                }
+                result.IsTrash = true;
+                this.ucontext.SaveChanges();
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public UserNotes IsArchiveORNot(long noteid)
+        {
+            try
+            {
+                UserNotes result = this.ucontext.Notes.FirstOrDefault(x => x.NoteID == noteid);
+                if (result.IsArchive == true)
+                {
+                    result.IsArchive = false;
+                    this.ucontext.SaveChanges();
+                    return result;
+                }
+                result.IsArchive = true;
+                this.ucontext.SaveChanges();
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public UserNotes Color(long noteid, string color)
+        {
+            try
+            {
+                UserNotes note = this.ucontext.Notes.FirstOrDefault(x => x.NoteID == noteid);
+                if (note.Color != null)
+                {
+                    note.Color = color;
+                    this.ucontext.SaveChanges();
+                    return note;
+                }
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+
     }
 }

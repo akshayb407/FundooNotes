@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Interfaces;
 using CommonLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using RepositoryLayer.Entity;
 using RepositoryLayer.Interfaces;
@@ -63,12 +64,45 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
-        
-        public bool Archieved(long NoteID, long userId)
+        public List<UserNotes> GetNote(long NotesId)
         {
             try
             {
-                return noteRL.Archieved(userId);
+                return noteRL.GetNote(NotesId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public List<UserNotes> GetAllNote()
+        {
+            try
+            {
+                return noteRL.GetAllNote();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+        public UserNotes IsPinORNot(long noteid)
+        {
+            try
+            {
+                return this.noteRL.IsPinORNot(noteid);
+            }
+            catch (Exception e)
+            {
+
+                throw e;
+            }
+        }
+        public UserNotes IstrashORNot(long noteid)
+        {
+            try
+            {
+                return this.noteRL.IstrashORNot(noteid);
             }
             catch (Exception)
             {
@@ -76,11 +110,11 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
-        public bool Trashed(long NoteID, long userId)
+        public UserNotes IsArchiveORNot(long noteid)
         {
             try
             {
-                return noteRL.Trashed(userId);
+                return this.noteRL.IsArchiveORNot(noteid);
             }
             catch (Exception)
             {
@@ -88,15 +122,17 @@ namespace BusinessLayer.Services
                 throw;
             }
         }
-
-        public bool Pinned(long NoteID, long userId)
+        public UserNotes Color(long noteid, string color)
         {
-            throw new NotImplementedException();
-        }
+            try
+            {
+                return this.noteRL.Color(noteid, color);
+            }
+            catch (Exception)
+            {
 
-        public UserNotes ColorNote(long NoteId, string color)
-        {
-            throw new NotImplementedException();
+                throw;
+            }
         }
     }
 }
