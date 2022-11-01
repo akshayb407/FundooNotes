@@ -19,5 +19,6 @@ namespace BusinessLayer.Interfaces
         public UserNotes IstrashORNot(long noteid);
         public UserNotes IsArchiveORNot(long noteid);
         public UserNotes Color(long noteid, string color);
+        public UserNotes UploadImage(long noteid, IFormFile img);
     }
 }

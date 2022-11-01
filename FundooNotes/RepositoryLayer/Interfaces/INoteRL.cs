@@ -1,4 +1,5 @@
 ﻿using CommonLayer.Models;
+using Microsoft.AspNetCore.Http;
 using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
@@ -18,5 +19,7 @@ namespace RepositoryLayer.Interfaces
         public UserNotes IstrashORNot(long noteid);
         public UserNotes IsArchiveORNot(long noteid);
         public UserNotes Color(long noteid, string color);
+        public UserNotes UploadImage(long noteid, IFormFile img);
+
     }
 }

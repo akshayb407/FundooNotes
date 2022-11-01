@@ -22,6 +22,6 @@ namespace RepositoryLayer.Entity
         public DateTime? Modifiedat { get; set; }
         [ForeignKey("Users")]
         public long userid { get; set; }
-        
+        public virtual UserNotes user { get; set; }
     }
 }

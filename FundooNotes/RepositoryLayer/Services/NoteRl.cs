@@ -1,4 +1,7 @@
-﻿using CommonLayer.Models;
+﻿using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
+using CommonLayer.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using RepositoryLayer.AppContext;
 using RepositoryLayer.Entity;
@@ -10,10 +13,15 @@ using System.Text;
 
 namespace RepositoryLayer.Services
 {
-   public class NoteRl : INoteRL
+ 
+    public class NoteRl : INoteRL
     {
-        public readonly UserContext ucontext;
+        private readonly UserContext ucontext;
         private readonly IConfiguration Config;
+        public const string CLOUD_NAME = "dx6odkh2y";
+        public const string API_KEY = "875371879244748";
+        public const string API_Secret = "b8q-C1N67T2vZo3WHCZg-_bFaLA";
+        public static Cloudinary cloud;
 
         public NoteRl(UserContext context, IConfiguration Config)
         {
@@ -233,6 +241,38 @@ namespace RepositoryLayer.Services
                     return note;
                 }
                 return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        public UserNotes UploadImage(long noteid, IFormFile img)
+        {
+            try
+            {
+                var noteId = this.ucontext.Notes.FirstOrDefault(e => e.NoteID == noteid);
+                if (noteId != null)
+                {
+                    Account acc = new Account(CLOUD_NAME, API_KEY, API_Secret);
+                    cloud = new Cloudinary(acc);
+                    var imagePath = img.OpenReadStream();
+                    var uploadParams = new ImageUploadParams()
+                    {
+                        File = new FileDescription(img.FileName, imagePath)
+                    };
+                    var uploadresult = cloud.Upload(uploadParams);
+                    noteId.Image = img.FileName;
+                    ucontext.Notes.Update(noteId);
+                    int upload = ucontext.SaveChanges();
+                    if (upload > 0)
+                    {
+                        return noteId;
+                    }
+                }
+                return null;
+
             }
             catch (Exception)
             {

@@ -3,25 +3,40 @@ using CommonLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using RepositoryLayer.AppContext;
 using RepositoryLayer.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FundooNotes.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [Authorize]
+    
     public class NotesController : ControllerBase
     {
         private readonly INoteBL noteBL;
-        public NotesController(INoteBL noteBL)
+        private IConfiguration config;
+        private UserContext Context;
+        private readonly IDistributedCache cache;
+        private readonly IMemoryCache memoryCache;
+        public NotesController(INoteBL noteBL, IConfiguration config, UserContext Context, IDistributedCache cache, IMemoryCache memoryCache)
         {
             this.noteBL = noteBL;
-        }
+            this.config = config;
+            this.Context = Context;
+            this.cache = cache;
+            this.memoryCache = memoryCache;
 
+        }
         [Authorize]
         [HttpPost("Add")]
         public IActionResult AddNotes(NoteModel addnote)
@@ -71,7 +86,7 @@ namespace FundooNotes.Controllers
         {
             try
             {
-                
+
                 List<UserNotes> result = noteBL.GetNotebyUserId(userID);
                 if (result == null)
                 {
@@ -228,5 +243,52 @@ namespace FundooNotes.Controllers
                 throw;
             }
         }
+        [Authorize]
+        [HttpPut("Upload")]
+        public IActionResult UploadImage(long noteid, IFormFile img)
+        {
+            try
+            {
+                var result = noteBL.UploadImage(noteid, img);
+                if (result != null)
+                {
+                    return this.Ok(new { message = "uploaded ", Response = result });
+                }
+                else
+                {
+                    return this.BadRequest(new { message = "Not uploaded" });
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
+        [HttpGet("RedisCache")]
+        public async Task<IActionResult> GetAllNotesUsingRedisCache()
+        {
+            var cacheKey = "NodeList";
+            string serializedNotesList;
+            var NotesList = new List<UserNotes>();
+            var redisNotesList = await cache.GetAsync(cacheKey);
+            if (redisNotesList != null)
+            {
+                serializedNotesList = Encoding.UTF8.GetString(redisNotesList);
+                NotesList = JsonConvert.DeserializeObject<List<UserNotes>>(serializedNotesList);
+            }
+            else
+            {
+                NotesList = await Context.Notes.ToListAsync();
+               // NotesList = (List<UserNotes>)noteBL.GetAllNote();
+                serializedNotesList = JsonConvert.SerializeObject(NotesList);
+                redisNotesList = Encoding.UTF8.GetBytes(serializedNotesList);
+                var option = new DistributedCacheEntryOptions().SetAbsoluteExpiration(DateTime.Now.AddMinutes(10)).SetSlidingExpiration(TimeSpan.FromMinutes(2));
+                await cache.SetAsync(cacheKey, redisNotesList, option);
+
+            }
+            return this.Ok(NotesList);
+        }
+
     }
 }
