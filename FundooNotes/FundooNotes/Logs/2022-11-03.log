@@ -1,0 +1,38 @@
+2022-11-03 10:26:28.2207 DEBUG Hosting starting
+2022-11-03 10:26:28.7861 INFO User profile is available. Using 'C:\Users\leovo\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2022-11-03 10:26:34.8179 DEBUG Reading data from file 'C:\Users\leovo\AppData\Local\ASP.NET\DataProtection-Keys\key-b76adfc9-3373-4419-8d6f-6b485b1bf116.xml'.
+2022-11-03 10:26:34.8688 DEBUG Found key {b76adfc9-3373-4419-8d6f-6b485b1bf116}.
+2022-11-03 10:26:34.8947 DEBUG Considering key {b76adfc9-3373-4419-8d6f-6b485b1bf116} with expiration date 2023-01-18 06:31:35Z as default key.
+2022-11-03 10:26:35.1099 DEBUG Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.30.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-11-03 10:26:35.1099 DEBUG Decrypting secret element using Windows DPAPI.
+2022-11-03 10:26:35.1099 DEBUG Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.30.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2022-11-03 10:26:35.1263 DEBUG Opening CNG algorithm 'AES' from provider '(null)' with chaining mode CBC.
+2022-11-03 10:26:35.1263 DEBUG Opening CNG algorithm 'SHA256' from provider '(null)' with HMAC.
+2022-11-03 10:26:35.1263 DEBUG Using key {b76adfc9-3373-4419-8d6f-6b485b1bf116} as the default key.
+2022-11-03 10:26:35.1263 DEBUG Key ring with default key {b76adfc9-3373-4419-8d6f-6b485b1bf116} was loaded during application startup.
+2022-11-03 10:27:00.5449 DEBUG Loaded hosting startup assembly FundooNotes
+2022-11-03 10:27:00.5449 DEBUG Loaded hosting startup assembly Microsoft.AspNetCore.Watch.BrowserRefresh
+2022-11-03 10:27:00.5449 DEBUG Loaded hosting startup assembly Microsoft.WebTools.BrowserLink.Net
+2022-11-03 10:27:00.5449 INFO Application started. Press Ctrl+C to shut down.
+2022-11-03 10:27:00.5449 INFO Hosting environment: Development
+2022-11-03 10:27:00.5449 INFO Content root path: H:\CFP\New folder\FundooNotes\FundooNotes
+2022-11-03 10:27:00.5449 DEBUG Hosting started
+2022-11-03 10:27:00.8377 INFO Request starting HTTP/2.0 GET https://localhost:44353/swagger/index.html  
+2022-11-03 10:27:00.9061 DEBUG Wildcard detected, all requests with hosts will be allowed.
+2022-11-03 10:27:00.9061 TRACE All hosts are allowed.
+2022-11-03 10:27:00.9654 DEBUG No candidates found for the request path '/swagger/index.html'
+2022-11-03 10:27:00.9659 DEBUG Request did not match any endpoints
+2022-11-03 10:27:02.1327 DEBUG AuthenticationScheme: Bearer was not authenticated.
+2022-11-03 10:27:02.2483 DEBUG Response markup is scheduled to include browser refresh script injection.
+2022-11-03 10:27:02.7039 DEBUG Response markup was updated to include browser refresh script injection.
+2022-11-03 10:27:02.7361 INFO Request starting HTTP/2.0 GET https://localhost:44353/_framework/aspnetcore-browser-refresh.js  
+2022-11-03 10:27:02.7361 INFO Request finished in 1905.3946ms 200 text/html;charset=utf-8
+2022-11-03 10:27:02.7560 INFO Request finished in 20.0239ms 200 application/javascript; charset=utf-8
+2022-11-03 10:27:02.7560 INFO Request starting HTTP/2.0 GET https://localhost:44353/_vs/browserLink  
+2022-11-03 10:27:02.8710 INFO Request finished in 112.7073ms 200 text/javascript; charset=UTF-8
+2022-11-03 10:27:03.2583 INFO Request starting HTTP/2.0 GET https://localhost:44353/swagger/v1/swagger.json  
+2022-11-03 10:27:03.2583 TRACE All hosts are allowed.
+2022-11-03 10:27:03.2639 DEBUG No candidates found for the request path '/swagger/v1/swagger.json'
+2022-11-03 10:27:03.2639 DEBUG Request did not match any endpoints
+2022-11-03 10:27:03.2639 DEBUG AuthenticationScheme: Bearer was not authenticated.
+2022-11-03 10:27:03.6194 INFO Request finished in 362.3369ms 200 application/json;charset=utf-8

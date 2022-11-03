@@ -46,6 +46,15 @@ namespace FundooNotes
             services.AddTransient<ILabelBL, LabelBL>();
             services.AddTransient<ILabelRL, LabelRl>();
             services.AddMemoryCache();
+            services.AddCors(Options =>
+            {
+                Options.AddPolicy(
+                    name: "AllowOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    });
+            });
             services.AddStackExchangeRedisCache(options =>
             {
                 options.Configuration = "localhost:6379";

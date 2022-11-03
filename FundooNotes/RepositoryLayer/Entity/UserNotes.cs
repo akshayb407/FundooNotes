@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace RepositoryLayer.Entity
 {
@@ -22,6 +23,7 @@ namespace RepositoryLayer.Entity
         public DateTime? Modifiedat { get; set; }
         [ForeignKey("Users")]
         public long userid { get; set; }
-        public virtual UserNotes user { get; set; }
+      // public virtual UserNotes user {get; set;} //here classs name is same so it was not working
+        public virtual UserEntity user { get; set; }//here is pass that UserEntity now its working
     }
 }
