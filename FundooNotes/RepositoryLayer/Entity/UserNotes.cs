@@ -23,7 +23,7 @@ namespace RepositoryLayer.Entity
         public DateTime? Modifiedat { get; set; }
         [ForeignKey("Users")]
         public long userid { get; set; }
-      // public virtual UserNotes user {get; set;} //here classs name is same so it was not working
-        public virtual UserEntity user { get; set; }//here is pass that UserEntity now its working
+      // public virtual UserNotes user {get; set;}
+        public virtual UserEntity user { get; set; }
     }
 }
